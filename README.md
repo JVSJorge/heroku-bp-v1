@@ -1,4 +1,4 @@
-#Heroku Page:
+# Heroku Page:
 https://heroku-bp-v1.herokuapp.com/
 # How to deploy to Heroku 
 - I should remove everithig related to favicon (into index.html, angular.js)
