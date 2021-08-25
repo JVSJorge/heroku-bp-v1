@@ -1,27 +1,38 @@
-# HerokuBpV1
+#Heroku Page:
+https://heroku-bp-v1.herokuapp.com/
+# How to deploy to Heroku 
+- I should remove everithig related to favicon (into index.html, angular.js)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.
+- Run: `npm install --save express path`
+- Changes into `package.json`
+- `"scripts": {
+    ...
+    "start": "node server.js",
+    "postinstall": "ng build --prod"
+  },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "6.1.0"
+  },`
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- `node --version
+npm --version`
+- Move @angular/cli, @angular/compiler-cli, typescripty "@angular-devkit/build-angular": "~0.6.8"__ __ * from `devDependencies` to `dependencias`.
+- Create in root a `server.js` with this information:
+<code>const path = require('path');
+const express = require('express');
+const app = express();
+// Serve static files
+app.use(express.static(__dirname + '/dist/MY_APP_NAME'));
+// Send all requests to index.html
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/dist/MY_APP_NAME/index.html'));
+});
+// default Heroku port
+app.listen(process.env.PORT || 5000);</code>
+Replace MY_APP_NAME with your app name.
+- Create Heroku app and first follow the deploy instructions
+  
+###References
+- https://medium.com/@roliver_javier/como-desplegar-tu-aplicacion-de-angular-en-heroku-7b9941b6d39
+- https://dev.to/gedgonz/haciendo-deploy-de-una-app-en-angular-a-heroku-16ji
